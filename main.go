@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -12,6 +14,11 @@ func main() {
 
 	// 启动一个Get请求
 	listenGetWelcomeRequest()
+	listenRegister()
+
+	// 阻塞端口，监听请求
+	http.ListenAndServe(":9000", nil)
+
 }
 
 // 模拟一个不含参的Get请求
@@ -21,6 +28,57 @@ func listenGetWelcomeRequest() {
 			writer.Write([]byte("Let's go"))
 		}
 	})
-
-	http.ListenAndServe(":9000", nil)
 }
+
+// 声明结构体（类） ``json别名
+type User struct {
+	Name     string `json:"username"`
+	Password string `json:"password"`
+}
+
+type Response struct {
+	Code    int
+	Message string
+}
+
+// 注册的内部实现
+func register(writer http.ResponseWriter, request *http.Request) {
+	var res Response
+	// 延时返回，return之后执行
+	defer func() {
+		//将model对象序列化成json对象
+		arr, _ := json.Marshal(res)
+		//取第一个参数通过writer返回
+		writer.Write(arr)
+	}()
+	if request.Method != "POST" {
+		return //无效返回
+	}
+
+	// 解析入参
+	bds, err := ioutil.ReadAll(request.Body)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	user := User{}
+	json.Unmarshal(bds, &user)
+
+	if len(user.Name) < 4 || len(user.Password) < 6 {
+		res.Code = 100001
+		res.Message = "注册参数不合法"
+	} else {
+		res.Code = 100000
+		res.Message = "注册成功"
+	}
+
+	return
+}
+
+// 模拟一个注册的POST请求
+func listenRegister() {
+	http.HandleFunc("/register", register)
+}
+
+// 模拟一个登陆的POST请求
