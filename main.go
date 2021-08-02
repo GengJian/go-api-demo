@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,7 +14,10 @@ func main() {
 	log.Println("Hello World!")
 
 	/* 面向对象学习 */
-	oopTest()
+	//oopTest()
+
+	/* Interface 学习*/
+	interfaceTest()
 
 	/* 启动Web服务 */
 	//requestTest()
@@ -22,13 +26,13 @@ func main() {
 
 // 面向对象 oop test
 func oopTest() {
-	puTongRen := Human{
+	普通人 := Human{
 		name:  "普通人",
 		age:   48,
 		phone: "13812345678",
 	}
 
-	xueSheng := Student{
+	学生 := Student{
 		Human: Human{
 			name:  "何同学",
 			age:   8,
@@ -37,8 +41,7 @@ func oopTest() {
 		school: "北京邮电大学",
 		loan:   -1800,
 	}
-
-	daGongrRen := Employee{
+	打工人 := Employee{
 		Human: Human{
 			name:  "打工人",
 			age:   30,
@@ -48,9 +51,9 @@ func oopTest() {
 		money:   30000,
 	}
 
-	puTongRen.SayHi()
-	xueSheng.SayHi()
-	daGongrRen.SayHi()
+	普通人.SayHi()
+	学生.SayHi()
+	打工人.SayHi()
 }
 
 // 注册接口 request test
@@ -61,6 +64,45 @@ func requestTest() {
 
 	// 阻塞端口，监听请求
 	http.ListenAndServe(":9000", nil)
+}
+
+// 接口测试 interface test
+type Men interface {
+	SayHi()
+	Sing(lyrics string)
+}
+
+func interfaceTest() {
+	mike := Student{Human{"Mike", 25, "111-222-XXX"}, "MIT", 0.00}
+	paul := Student{Human{"Paul", 26, "111-222-XXX"}, "Harvard", 100}
+	sam := Employee{Human{"Sam", 36, "444-222-XXX"}, "Golang Inc.", 1000}
+	tom := Employee{Human{"Tom", 37, "222-444-XXX"}, "Things Ltd.", 5000}
+
+	//定义Men类型的变量i（类似泛型+协议）
+	var i Men
+
+	//i能存储Student
+	i = mike
+	fmt.Println("This is Mike, a Student:")
+	i.SayHi()
+	i.Sing("November rain")
+
+	//i也能存储Employee
+	i = tom
+	fmt.Println("This is tom, an Employee:")
+	i.SayHi()
+	i.Sing("Born to be wild")
+
+	//定义了slice Men
+	fmt.Println("Let's use a slice of Men and see what happens")
+	x := make([]Men, 3)
+	//这三个都是不同类型的元素，但是他们实现了interface同一个接口
+	x[0], x[1], x[2] = paul, sam, mike
+
+	for _, value := range x {
+		value.SayHi()
+	}
+
 }
 
 // 模拟一个不含参的Get请求

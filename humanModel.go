@@ -32,7 +32,7 @@ func (h Human) SayHi() {
 
 // Sing Human 对象实现Sing方法
 func (h Human) Sing(lyrics string) {
-	Printf("La la ,la la la, la la la ... \n", lyrics)
+	Printf("La la ,la la la, la la la ...%s \n", lyrics)
 }
 
 // SayHi Employee 重载Human SayHi方法
