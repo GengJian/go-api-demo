@@ -12,14 +12,23 @@ func main() {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 	log.Println("Hello World!")
 
-	// 面向对象学习
+	/* 面向对象学习 */
+	oopTest()
+
+	/* 启动Web服务 */
+	//requestTest()
+
+}
+
+// 面向对象 oop test
+func oopTest() {
 	puTongRen := Human{
 		name:  "普通人",
 		age:   48,
 		phone: "13812345678",
 	}
 
-	xuesheng := Student{
+	xueSheng := Student{
 		Human: Human{
 			name:  "何同学",
 			age:   8,
@@ -29,7 +38,7 @@ func main() {
 		loan:   -1800,
 	}
 
-	dagongren := Employee{
+	daGongrRen := Employee{
 		Human: Human{
 			name:  "打工人",
 			age:   30,
@@ -40,16 +49,18 @@ func main() {
 	}
 
 	puTongRen.SayHi()
-	xuesheng.SayHi()
-	dagongren.SayHi()
+	xueSheng.SayHi()
+	daGongrRen.SayHi()
+}
 
+// 注册接口 request test
+func requestTest() {
 	// 启动一个Get请求
 	listenGetWelcomeRequest()
 	listenRegister()
 
 	// 阻塞端口，监听请求
 	http.ListenAndServe(":9000", nil)
-
 }
 
 // 模拟一个不含参的Get请求
