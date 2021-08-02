@@ -103,6 +103,10 @@ func interfaceTest() {
 		value.SayHi()
 	}
 
+	// 测试实现String的接口,重写desperation
+	Bob := Human{"Bob", 39, "000-7777-XXX"}
+	fmt.Println("This Human is : ", Bob)
+
 }
 
 // 模拟一个不含参的Get请求

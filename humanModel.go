@@ -2,6 +2,7 @@ package main
 
 import (
 	. "fmt"
+	"strconv"
 )
 
 // Human 人类
@@ -38,4 +39,8 @@ func (h Human) Sing(lyrics string) {
 // SayHi Employee 重载Human SayHi方法
 func (e Employee) SayHi() {
 	Printf("Hi, I am %s, I Work at %s, Call me on %s \n", e.name, e.company, e.phone)
+}
+
+func (h Human) String() string {
+	return "<" + h.name + " - " + strconv.Itoa(h.age) + " years - ☎️ " + h.phone + ">"
 }
