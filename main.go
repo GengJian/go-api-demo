@@ -12,6 +12,37 @@ func main() {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 	log.Println("Hello World!")
 
+	// 面向对象学习
+	puTongRen := Human{
+		name:  "普通人",
+		age:   48,
+		phone: "13812345678",
+	}
+
+	xuesheng := Student{
+		Human: Human{
+			name:  "何同学",
+			age:   8,
+			phone: "123001",
+		},
+		school: "北京邮电大学",
+		loan:   -1800,
+	}
+
+	dagongren := Employee{
+		Human: Human{
+			name:  "打工人",
+			age:   30,
+			phone: "996996",
+		},
+		company: "字节跳动",
+		money:   30000,
+	}
+
+	puTongRen.SayHi()
+	xuesheng.SayHi()
+	dagongren.SayHi()
+
 	// 启动一个Get请求
 	listenGetWelcomeRequest()
 	listenRegister()
