@@ -25,6 +25,7 @@ func main() {
 }
 
 // 面向对象 oop test
+//goland:noinspection GoUnusedFunction
 func oopTest() {
 	普通人 := Human{
 		name:  "普通人",
@@ -57,6 +58,7 @@ func oopTest() {
 }
 
 // 注册接口 request test
+//goland:noinspection ALL
 func requestTest() {
 	// 启动一个Get请求
 	listenGetWelcomeRequest()
@@ -66,7 +68,7 @@ func requestTest() {
 	http.ListenAndServe(":9000", nil)
 }
 
-// 接口测试 interface test
+// Men 接口测试 interface test
 type Men interface {
 	SayHi()
 	Sing(lyrics string)
@@ -118,7 +120,7 @@ func listenGetWelcomeRequest() {
 	})
 }
 
-// 声明结构体（类） ``json别名
+// User 声明结构体（类） ``json别名
 type User struct {
 	Name     string `json:"username"`
 	Password string `json:"password"`
