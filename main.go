@@ -27,13 +27,13 @@ func main() {
 // 面向对象 oop test
 //goland:noinspection GoUnusedFunction
 func oopTest() {
-	普通人 := Human{
+	commonPeople := Human{
 		name:  "普通人",
 		age:   48,
 		phone: "13812345678",
 	}
 
-	学生 := Student{
+	studentA := Student{
 		Human: Human{
 			name:  "何同学",
 			age:   8,
@@ -42,7 +42,7 @@ func oopTest() {
 		school: "北京邮电大学",
 		loan:   -1800,
 	}
-	打工人 := Employee{
+	workerB := Employee{
 		Human: Human{
 			name:  "打工人",
 			age:   30,
@@ -52,9 +52,9 @@ func oopTest() {
 		money:   30000,
 	}
 
-	普通人.SayHi()
-	学生.SayHi()
-	打工人.SayHi()
+	commonPeople.SayHi()
+	studentA.SayHi()
+	workerB.SayHi()
 }
 
 // 注册接口 request test
